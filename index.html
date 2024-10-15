@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang = "en">
+	<head>
+		<meta charset="utf-8">
+		<title>Mini-Flowy</title>
+		<link rel = "stylesheet" href = "index.css">
+	</head>
+
+	<body>
+		<section class = "todoapp">
+			<ul class="todo-list"></ul>
+		</section>
+
+		<script id="todo-template" type="text/x-handlebars-template">
+		
+			{{#this}}
+
+				<li {{#if completed}} class = "completed" {{else}} class = "non-completed" {{/if}} data-id="{{id}}">
+					<label class = "container">
+						<input class = "toggle" type = "checkbox" {{#if completed}}checked{{/if}}>
+						<span class = "checkmark"></span>
+					</label>
+					<input id = "{{id}}" class = "input-text" value = "{{title}}">
+					
+					{{#if children}}
+						<ul>
+								{{> partial-template-children}}
+						</ul>
+					{{/if}}
+				</li>
+
+			{{/this}}
+
+		</script>
+
+		<script id="partial-template" type="text/x-handlebars-template">
+	
+			{{#each children}}
+
+				<li {{#if completed}} class = "completed" {{else}} class = "non-completed" {{/if}} data-id="{{id}}">
+					<label class = "container">
+						<input class = "toggle" type = "checkbox" {{#if completed}}checked{{/if}}>
+						<span class = "checkmark"></span>
+					</label>
+					<input id = "{{id}}" class = "input-text" value = "{{title}}">
+
+					{{#if children}}
+						<ul>
+							{{> partial-template-children}}
+						</ul>
+					{{/if}}
+				</li>
+
+			{{/each}}
+
+		</script>
+
+		<script src="handlebars.js"></script>
+		<script src="app.js"></script>
+	</body>
+</html>
